@@ -1,0 +1,2 @@
+user: user
+pass: 62d23f18a9c263f5498d2ac2f41dc1b7

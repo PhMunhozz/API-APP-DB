@@ -1,0 +1,27 @@
+services:
+  web:
+    build: ./
+    volumes:
+      - ../:/var/www/html/
+    ports:
+      - "80:80"
+
+  db:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    volumes:
+      - ../db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: loja_api
+      MYSQL_USER: user
+      MYSQL_PASSWORD: 62d23f18a9c263f5498d2ac2f41dc1b7
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: db
