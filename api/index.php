@@ -17,7 +17,6 @@ if(!$api->check_method($_SERVER['REQUEST_METHOD'])) {
 $api->set_method($_SERVER['REQUEST_METHOD']);
 
 // set request endpoint
-$api->set_endpoint($_SERVER['REQUEST_METHOD']);
 if($api->get_method() == 'GET') {
     $api->set_endpoint($_GET['endpoint']);
 }

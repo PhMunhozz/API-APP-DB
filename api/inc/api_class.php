@@ -31,13 +31,6 @@ class api_class{
     }
 
 
-
-
-
-
-
-
-
     // outputs an api error message
     public function api_request_error($message = ""){
         $this->data['status'] = 'ERROR';
