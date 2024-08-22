@@ -15,10 +15,28 @@ class api_class{
         return in_array($method, $this->available_methods);
     }
 
-    // sets the response method
+    // sets the request method
     public function set_method($method){
         $this->data['method'] = $method;
     }
+
+    // gets the request method
+    public function get_method(){
+        return $this->data['method'];
+    }
+
+    // sets the request endpoint
+    public function set_endpoint($endpoint){
+        $this->data['endpoint'] = $endpoint;
+    }
+
+
+
+
+
+
+
+
 
     // outputs an api error message
     public function api_request_error($message = ""){

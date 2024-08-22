@@ -6,12 +6,26 @@ require_once(dirname(__FILE__) . '/inc/api_class.php');
 
 // instance of the api_class
 $api = new api_class();
-$api->send_api_status();
 
-// // check the method
-// if(!$api->check_method($_SERVER['REQUEST_METHOD'])) {
-//     $api->api_request_error("Method not allowed");
-// }
+// check if method is valid
+if(!$api->check_method($_SERVER['REQUEST_METHOD'])) {
+    // send error response
+    $api->api_request_error("Invalid request method");
+}
+
+// set request method
+$api->set_method($_SERVER['REQUEST_METHOD']);
+
+// set request endpoint
+$api->set_endpoint($_SERVER['REQUEST_METHOD']);
+if($api->get_method() == 'GET') {
+    $api->set_endpoint($_GET['endpoint']);
+}
+else if($api->get_method() == 'POST') {
+    $api->set_endpoint($_POST['endpoint']);
+}
+
+$api->send_api_status();
 
 
 // // temporary response
