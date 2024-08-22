@@ -1,6 +1,6 @@
 <?
 
-class api_class{
+class api_response{
     
     private $data;
     private $available_methods = ['GET', 'POST'];
@@ -30,7 +30,19 @@ class api_class{
         $this->data['endpoint'] = $endpoint;
     }
 
+    // gets the request endpoint
+    public function get_endpoint(){
+        return $this->data['endpoint'];
+    }
 
+    // adds data to the response
+    public function add_to_data($key, $value){
+        $this->data[$key] = $value;
+    }
+
+
+    // OUTPUTS
+    
     // outputs an api error message
     public function api_request_error($message = ""){
         $this->data['status'] = 'ERROR';
@@ -47,7 +59,7 @@ class api_class{
 
     // output final response
     public function send_response(){
-        header('Content-Type: application/json');
+        // header('Content-Type: application/json');
         echo json_encode($this->data);
         die(1);
     }
