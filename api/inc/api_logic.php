@@ -1,5 +1,4 @@
 <?
-
 class api_logic{
 
     private $endpoint;
@@ -17,6 +16,28 @@ class api_logic{
     }
 
     public function status(){
-        
+        $data = [
+            'status' => 'SUCCESS',
+            'message' => 'API is running ok',
+            'results' => null
+        ];
+
+        return $data;
+    }
+
+    public function get_all_clients(){
+        // $database = new database();
+        // $results = $database->EXE_QUERY("SELECT * FROM clientes");
+
+        $data = [
+            'status' => 'SUCCESS',
+            'message' => 'All clients retrieved successfully',
+            'results' => [
+                'Paulo',
+                'Karol'
+            ]
+        ];
+
+        return $data;
     }
 }

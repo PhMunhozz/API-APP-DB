@@ -45,8 +45,13 @@ class api_response{
     
     // outputs an api error message
     public function api_request_error($message = ""){
-        $this->data['status'] = 'ERROR';
-        $this->data['error_message'] = $message;
+        $data = [
+            'status' => 'ERROR',
+            'message' => $message,
+            'results' => null
+        ];
+
+        $this->data['data'] = $data;
         $this->send_response();
     }
 
@@ -59,7 +64,7 @@ class api_response{
 
     // output final response
     public function send_response(){
-        // header('Content-Type: application/json');
+        header('Content-Type: application/json');
         echo json_encode($this->data);
         die(1);
     }

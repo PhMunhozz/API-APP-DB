@@ -39,7 +39,7 @@ function api_request($endpoint, $method = 'GET', $variables = []){
     // close the client
     curl_close($client);
 
-    echo $url;
+    // echo $url;
     return json_decode($response, true);
 
 }

@@ -4,14 +4,13 @@
 require_once('inc/config.php');
 require_once('inc/api_functions.php');
 
-// $variables = [
-//     'nome' => 'paulo',
-//     'sobrenome' => 'munhoz'
-// ];
-
-// request
-// $results = api_request('status', 'GET', $variables);
-$results = api_request('status', 'GET');
-
 echo '<pre>';
+
+$results = api_request('status', 'GET');
+var_dump($results);
+
+$results = api_request('statusx', 'GET');
+var_dump($results);
+
+$results = api_request('get_all_clients', 'GET');
 var_dump($results);

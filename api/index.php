@@ -4,6 +4,7 @@
 require_once(dirname(__FILE__) . '/inc/config.php');
 require_once(dirname(__FILE__) . '/inc/api_response.php');
 require_once(dirname(__FILE__) . '/inc/api_logic.php');
+require_once(dirname(__FILE__) . '/inc/database.php');
 
 // instance of the api_class
 $api_response = new api_response();
@@ -41,24 +42,5 @@ if(!$api_logic->endpoint_exists()) {
 $result = $api_logic->{$api_response->get_endpoint()}();
 $api_response->add_to_data('data', $result);
 
-
-
-
-
-$api_response->send_api_status();
-
-
-// // temporary response
-// header("Content-Type: application/json");
-
-// $data['status'] = 'SUCCESS';
-// $data['method'] = $_SERVER['REQUEST_METHOD'];
-
-// // show variables of request (get or post)
-// if($data['method'] == 'GET') {
-//     $data['data'] = $_GET;
-// } else if($data['method'] == 'POST') {
-//     $data['data'] = $_POST;
-// }
-
-// echo json_encode($data);
+// send response
+$api_response->send_response();
