@@ -1,5 +1,5 @@
 <?
-
+ini_set('display_errors', 0);
 // dependencies
 require_once(dirname(__FILE__) . '/inc/config.php');
 require_once(dirname(__FILE__) . '/inc/api_response.php');
@@ -28,8 +28,7 @@ else if($api_response->get_method() == 'POST') {
     $api_response->set_endpoint($_POST['endpoint']);
     $params = $_POST;
 }
-// echo '<pre>';
-// var_dump($params);
+
 // prepare the api logic
 $api_logic = new api_logic($api_response->get_endpoint(), $params);
 

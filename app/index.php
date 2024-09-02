@@ -1,30 +1,12 @@
 <?
-
 // dependencies
 require_once('inc/config.php');
 require_once('inc/api_functions.php');
 
-// echo '<pre>';
-
-// $results = api_request('status', 'GET');
-// var_dump($results);
-// echo '<br><br>';
-
-// $results = api_request('statusx', 'GET');
-// var_dump($results);
-// echo '<br><br>';
-
-// $results = api_request('get_all_clients', 'GET');
-// var_dump($results);
-// echo '<br><br>';
-
-// $results = api_request('get_all_products', 'GET');
-// var_dump($results);
-
-// $results = api_request('get_client_by_id', 'GET', array('id' => 1));
-// var_dump($results);
-// echo '<br><br>';
+// Accessing clients data
+$results = api_request('get_all_clients', 'POST', ['only_active' => true]);
 ?>
+
 <h3>Clients</h3>
 <table>
     <tr>
@@ -33,8 +15,6 @@ require_once('inc/api_functions.php');
         <td>Email</td>
     </tr>
     <?
-    // Accessing clients data
-    $results = api_request('get_all_clients', 'GET');
     foreach($results['data']['results'] as $client) {
         echo '<tr><td>' . $client['id'] . '</td><td>' . $client['nome'] . '</td><td>' . $client['email'] . '</td></tr>';
     }
