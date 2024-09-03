@@ -24,7 +24,16 @@ class api_logic{
         ];
         return $data;
     }
-
+    
+    // success response
+    public function success_response($message, $results){
+        $data = [
+            'status' => 'SUCCESS',
+            'message' => $message,
+            'results' => $results
+        ];
+        return $data;
+    }
 
     // ENDPOINTS
     // test if the API is running
@@ -40,34 +49,22 @@ class api_logic{
 
     // get all clients in the database
     public function get_all_clients(){
-        $sql = "SELECT * FROM clientes WHERE 1 ";
+        // // filter for active and deleted clients
 
-        // filter only active clients
-        if(key_exists('only_active', $this->params) and filter_var($this->params['only_active'], FILTER_VALIDATE_BOOLEAN)) $sql .= "AND ISNULL(deleted_at) ";
+        // $sql = "SELECT * FROM clientes WHERE 1 ";
 
-        // filter only deleted clients
-        if(key_exists('only_deleted', $this->params) and filter_var($this->params['only_deleted'], FILTER_VALIDATE_BOOLEAN)) $sql .= "AND NOT ISNULL(deleted_at) ";
+        // // filter only active clients
+        // if(key_exists('only_active', $this->params) and filter_var($this->params['only_active'], FILTER_VALIDATE_BOOLEAN)) $sql .= "AND ISNULL(deleted_at) ";
+
+        // // filter only deleted clients
+        // if(key_exists('only_deleted', $this->params) and filter_var($this->params['only_deleted'], FILTER_VALIDATE_BOOLEAN)) $sql .= "AND NOT ISNULL(deleted_at) ";
         
         $db = new database();
-        $results = $db->EXE_QUERY("$sql");
+        $results = $db->EXE_QUERY("SELECT * FROM clientes");
 
         // if client not found
-        if(empty($results)){
-            $data = [
-                'status' => 'ERROR',
-                'message' => 'No clients found',
-                'results' => null
-            ];
-            return $data;
-        }
-
-        $data = [
-            'status' => 'SUCCESS',
-            'message' => 'All clients retrieved successfully',
-            'results' => $results
-        ];
-
-        return $data;
+        if(empty($results)) return $this->error_response('No clients found');
+        else return $this->success_response('All clients retrieved successfully', $results);
     }
 
     //get active clients
@@ -76,22 +73,8 @@ class api_logic{
         $results = $db->EXE_QUERY("SELECT * FROM clientes WHERE deleted_at IS NULL");
 
         // if client not found
-        if(empty($results)){
-            $data = [
-                'status' => 'ERROR',
-                'message' => 'No active clients found',
-                'results' => null
-            ];
-            return $data;
-        }
-
-        $data = [
-            'status' => 'SUCCESS',
-            'message' => 'All active clients retrieved successfully',
-            'results' => $results
-        ];
-
-        return $data;
+        if(empty($results)) return $this->error_response('No active clients found');
+        else return $this->success_response('All active clients retrieved successfully', $results);
     }
 
     //get inactive clients
@@ -100,22 +83,8 @@ class api_logic{
         $results = $db->EXE_QUERY("SELECT * FROM clientes WHERE deleted_at IS NOT NULL");
 
         // if client not found
-        if(empty($results)){
-            $data = [
-                'status' => 'ERROR',
-                'message' => 'No inactive clients found',
-                'results' => null
-            ];
-            return $data;
-        }
-
-        $data = [
-            'status' => 'SUCCESS',
-            'message' => 'All inactive clients retrieved successfully',
-            'results' => $results
-        ];
-
-        return $data;
+        if(empty($results)) return $this->error_response('No inactive clients found');
+        else return $this->success_response('All inactive clients retrieved successfully', $results);
     }
 
     // get client by id
@@ -132,47 +101,27 @@ class api_logic{
             
             return $this->error_response($message);
         }
-
-        $data = [
-            'status' => 'SUCCESS',
-            'message' => 'All clients retrieved successfully',
-            'results' => $results
-        ];
-
-        return $data;
+        else return $this->success_response('Client retrieved successfully', $results);
     }
 
     // get all products in the database
     public function get_all_products(){
         
-        $sql = "SELECT * FROM produtos WHERE 1";
+        // // filter for active and deleted products
 
-        // filter only active products
-        if(key_exists('only_active', $this->params) and filter_var($this->params['only_active'], FILTER_VALIDATE_BOOLEAN)) $sql .= "AND ISNULL(deleted_at) ";
+        // $sql = "SELECT * FROM produtos WHERE 1";
+        // // filter only active products
+        // if(key_exists('only_active', $this->params) and filter_var($this->params['only_active'], FILTER_VALIDATE_BOOLEAN)) $sql .= "AND ISNULL(deleted_at) ";
 
-        // filter only deleted products
-        if(key_exists('only_deleted', $this->params) and filter_var($this->params['only_deleted'], FILTER_VALIDATE_BOOLEAN)) $sql .= "AND NOT ISNULL(deleted_at) ";
+        // // filter only deleted products
+        // if(key_exists('only_deleted', $this->params) and filter_var($this->params['only_deleted'], FILTER_VALIDATE_BOOLEAN)) $sql .= "AND NOT ISNULL(deleted_at) ";
 
         $database = new database();
-        $results = $database->EXE_QUERY("$sql");
+        $results = $database->EXE_QUERY("SELECT * FROM produtos");
 
         // if product not found
-        if(empty($results)){
-            $data = [
-                'status' => 'ERROR',
-                'message' => 'No products found',
-                'results' => null
-            ];
-            return $data;
-        }
-
-        $data = [
-            'status' => 'SUCCESS',
-            'message' => 'All products retrieved successfully',
-            'results' => $results
-        ];
-
-        return $data;
+        if(empty($results)) return $this->error_response('No products found');
+        else return $this->success_response('All products retrieved successfully', $results);
     }
 
     //get active products
@@ -181,22 +130,8 @@ class api_logic{
         $results = $db->EXE_QUERY("SELECT * FROM produtos WHERE deleted_at IS NULL");
 
         // if product not found
-        if(empty($results)){
-            $data = [
-                'status' => 'ERROR',
-                'message' => 'No active products found',
-                'results' => null
-            ];
-            return $data;
-        }
-
-        $data = [
-            'status' => 'SUCCESS',
-            'message' => 'All active products retrieved successfully',
-            'results' => $results
-        ];
-
-        return $data;
+        if(empty($results)) return $this->error_response('No active products found');
+        else return $this->success_response('All active products retrieved successfully', $results);
     }
 
     //get inactive products
@@ -205,22 +140,28 @@ class api_logic{
         $results = $db->EXE_QUERY("SELECT * FROM produtos WHERE deleted_at IS NOT NULL");
 
         // if product not found
-        if(empty($results)){
-            $data = [
-                'status' => 'ERROR',
-                'message' => 'No inactive products found',
-                'results' => null
-            ];
-            return $data;
-        }
+        if(empty($results)) return $this->error_response('No inactive products found');
+        else return $this->success_response('All inactive products retrieved successfully', $results);
+    }
 
-        $data = [
-            'status' => 'SUCCESS',
-            'message' => 'All inactive products retrieved successfully',
-            'results' => $results
-        ];
+    //get all products with stock
+    public function get_all_products_with_stock(){
+        $db = new database();
+        $results = $db->EXE_QUERY("SELECT * FROM produtos WHERE deleted_at IS NULL AND quantidade > 0");
 
-        return $data;
+        // if product not found
+        if(empty($results)) return $this->error_response('No products found');
+        else return $this->success_response('All products retrieved successfully', $results);
+    }
+
+    //get all products without stock
+    public function get_all_products_without_stock(){
+        $db = new database();
+        $results = $db->EXE_QUERY("SELECT * FROM produtos WHERE deleted_at IS NULL AND quantidade <= 0");
+
+        // if product not found
+        if(empty($results)) return $this->error_response('No products found');
+        else return $this->success_response('All products retrieved successfully', $results);
     }
 
     // get product by id
@@ -238,14 +179,7 @@ class api_logic{
 
             return $this->error_response($message);
         }
-
-        $data = [
-            'status' => 'SUCCESS',
-            'message' => 'All products retrieved successfully',
-            'results' => $results
-        ];
-
-        return $data;
+        else return $this->success_response('Product retrieved successfully', $results);
     }
 
 }

@@ -4,10 +4,24 @@ require_once('inc/config.php');
 require_once('inc/api_functions.php');
 
 // Accessing clients data
-$results = api_request('get_all_clients', 'POST', ['only_active' => true]);
+// $results = api_request('get_all_clients', 'POST', ['only_active' => true]);
 ?>
 
-<h3>Clients</h3>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APP</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+    
+    <script src="assets/bootstrap/js/bootstrap.bundle.min.js.js"></script>
+</body>
+</html>
+
+<!-- <h3>Clients</h3>
 <table>
     <tr>
         <td>ID</td>
@@ -35,4 +49,4 @@ $results = api_request('get_all_clients', 'POST', ['only_active' => true]);
         echo '<tr><td>' . $product['id'] . '</td><td>' . $product['produto'] . '</td><td>' . $product['quantidade'] . '</td></tr>';
     }
     ?>
-</table>
+</table> -->
