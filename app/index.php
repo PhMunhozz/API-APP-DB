@@ -32,13 +32,21 @@ include('conecta.php');
         .dropdown-menu li:hover .submenu {
             display: block;
         }
+
+        .clickable-row { 
+          cursor: pointer;
+        }
+
     </style>
 </head>
 <body>
+    <!-- <input type="text" name="page" id="page" value=""> -->
+    <!-- <span id="page"></span> -->
     <?
+    if(!isset($_GET['page'])) $_GET['page'] = 'inicio.php';
+
     include('nav.php');
 
-    if(!isset($_GET['page'])) $_GET['page'] = 'inicio.php';
     include("$_GET[page]");
     ?>
 
